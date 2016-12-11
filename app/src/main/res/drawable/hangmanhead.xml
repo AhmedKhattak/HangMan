@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="1150dp"
+    android:height="540dp"
+    android:viewportWidth="1150"
+    android:viewportHeight="540">
+
+    <path
+        android:name="svgEditorBackground"
+        android:strokeWidth="1"
+        android:pathData="M 0 0 H 1150 V 540 H 0 V 0 Z" />
+    <!-- head -->
+    <path
+        android:name="e1_circle"
+        android:fillColor="#ffffff"
+        android:strokeColor="#000000"
+        android:strokeWidth="2"
+        android:pathData="M 523 171.7647 C 543.012203596 171.7647 559.2353 187.987796404 559.2353 208 C 559.2353 228.012203596 543.012203596 244.2353 523 244.2353 C 502.987796404 244.2353 486.7647 228.012203596 486.7647 208 C 486.7647 187.987796404 502.987796404 171.7647 523 171.7647 Z" />
+    <path
+        android:name="e154_line"
+        android:strokeColor="#000000"
+        android:strokeWidth="5"
+        android:pathData="M 402 414 L 669 413" />
+    <path
+        android:name="e168_line"
+        android:strokeColor="#000000"
+        android:strokeWidth="5"
+        android:pathData="M 402 414 L 401 50" />
+    <path
+        android:name="e182_line"
+        android:strokeColor="#000000"
+        android:strokeWidth="5"
+        android:pathData="M 401 50 L 520.828 50.0861" />
+    <path
+        android:name="e237_line"
+        android:strokeColor="#000000"
+        android:strokeWidth="5"
+        android:pathData="M 520.828 50 L 521.914 170" />
+</vector>
