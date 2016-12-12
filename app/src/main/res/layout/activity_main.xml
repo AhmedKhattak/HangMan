@@ -29,7 +29,6 @@
             android:text="This is a place holder hint noice !"
             android:textColor="@android:color/black"
             android:textSize="18sp"
-
             />
 
         <!-- this container contains each edittext view for the game words -->
@@ -44,6 +43,7 @@
             app:alignItems="flex_start"
             app:flexDirection="row"
             app:flexWrap="wrap"
+            android:layout_marginTop="0dp"
             app:justifyContent="center">
 
 
@@ -54,7 +54,7 @@
         <ImageView
             android:id="@+id/hangmanImage"
             android:layout_width="wrap_content"
-            android:layout_height="350dp"
+            android:layout_height="270dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
@@ -63,6 +63,28 @@
             android:paddingLeft="60dp"
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/fullhangman" />
+
+        <EditText
+            android:layout_below="@id/flexWordContainer"
+            android:id="@+id/wordInput"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentLeft="true"
+            android:lines="1"
+            android:maxLength="1"
+            android:saveEnabled="true"
+            android:inputType="textCapCharacters"
+            android:imeOptions="actionDone"
+            android:gravity="center"
+            />
+
+        <Button
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/flexWordContainer"
+            android:id="@+id/guessButton"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:text="GUESS !"/>
 
 
     </RelativeLayout>

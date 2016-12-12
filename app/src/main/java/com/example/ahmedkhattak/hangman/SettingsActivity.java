@@ -1,3 +1,4 @@
+/*
 package com.example.ahmedkhattak.hangman;
 
 import android.support.v7.app.AppCompatActivity;
@@ -11,3 +12,4 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
     }
 }
+*/

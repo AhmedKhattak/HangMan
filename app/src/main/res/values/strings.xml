@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">HangMan</string>
     <string name="the_man_on_the_gallows_with_his_life_in_the_players_hands">The man on the gallows with his life in the players hands !</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_restart">restart</string>
+    <string name="action_about">About</string>
 
 </resources>

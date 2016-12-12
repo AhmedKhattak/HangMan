@@ -1,17 +1,22 @@
 package com.example.ahmedkhattak.hangman;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.ahmedkhattak.hangman.Models.HangmanCharacter;
 import com.google.android.flexbox.FlexboxLayout;
@@ -26,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
     private FlexboxLayout flexboxLayout;
     private ImageView hangmanImageView;
     private TextView hintTextView;
+    Button guessButton;
+    EditText wordInputEditText;
     List<HangmanCharacter> hangmanCharacterList = null;
 
 
@@ -37,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         setFocus();
         initVars();
         removeViews();
-        setHintTextView("Its a me mariiio !");
+        setHintTextView("Its a me mariiio a very noice hint !");
         renderEditTextViews("Ahmed Khattak");
 
     }
@@ -50,6 +57,17 @@ public class MainActivity extends AppCompatActivity {
         hangmanImageView = (ImageView) findViewById(R.id.hangmanImage);
         flexboxLayout = (FlexboxLayout) findViewById(R.id.flexWordContainer);
         hintTextView = (TextView) findViewById(R.id.wordHint);
+        wordInputEditText = (EditText) findViewById(R.id.wordInput);
+        guessButton = (Button) findViewById(R.id.guessButton);
+    }
+
+    private void setListeners() {
+        guessButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
 
@@ -79,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         //loop through each char and create appropriate edittext
+        int x = 0;
         for (HangmanCharacter hangmanCharacter : hangmanCharacterList) {
 
             //set appropriate attribs of edit text and maybe set watchers or listeners for each edittext separately
@@ -86,14 +105,15 @@ public class MainActivity extends AppCompatActivity {
             if (hangmanCharacter.isHint()) {
 
                 //make disabled edittext
-                flexboxLayout.addView(builEditTextViewWithHint(hangmanCharacter.getCharacter()));
+                flexboxLayout.addView(builEditTextViewWithHint(hangmanCharacter.getCharacter(), x));
                 Log.d(TAG, "added view with hint");
 
             } else {
                 //make enable edittext
-                flexboxLayout.addView(builEditTextView());
+                flexboxLayout.addView(builEditTextView(x));
                 Log.d(TAG, "added view with no hint");
             }
+            x++;
 
 
         }
@@ -136,18 +156,20 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private EditText builEditTextView() {
+    private EditText builEditTextView(int id) {
         EditText editText = new EditText(this);
-        editText.setCursorVisible(false);
         editText.setVisibility(View.VISIBLE);
+        editText.setCursorVisible(false);
         editText.setGravity(Gravity.CENTER);
-        editText.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        editText.setFocusable(true);
         editText.setSaveEnabled(true);
-        editText.setInputType(InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+        editText.setInputType(InputType.TYPE_NULL);
         editText.setFilters(new InputFilter[]{
                 new InputFilter.LengthFilter(1)
         });
+        editText.setId(id);
         editText.setLayoutParams(createDefaultLayoutParams());
+
 
 
 
@@ -165,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private EditText builEditTextViewWithHint(Character text) {
+    private EditText builEditTextViewWithHint(Character text, int id) {
         EditText editText = new EditText(this);
         editText.setVisibility(View.VISIBLE);
         editText.setCursorVisible(false);
@@ -176,6 +198,7 @@ public class MainActivity extends AppCompatActivity {
         editText.setFilters(new InputFilter[]{
                 new InputFilter.LengthFilter(1)
         });
+        editText.setId(id);
         editText.setLayoutParams(createDefaultLayoutParams());
         editText.setText(text.toString());
 
@@ -219,10 +242,42 @@ public class MainActivity extends AppCompatActivity {
 
     private FlexboxLayout.LayoutParams createDefaultLayoutParams() {
         FlexboxLayout.LayoutParams lp = new FlexboxLayout.LayoutParams(
-                100,100);
+                100, FlexboxLayout.LayoutParams.WRAP_CONTENT);
         return lp;
     }
 
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+           /* case R.id.action_settings:
+                // User chose the "Settings" item, show the app settings UI...
+                Toast.makeText(this, "setings clicked !", Toast.LENGTH_SHORT).show();
+                return true;*/
+
+            case R.id.action_restart:
+
+                Toast.makeText(this, "restart game clicked !", Toast.LENGTH_SHORT).show();
+                return true;
+
+            case R.id.action_about:
+
+                Intent i = new Intent(this, AboutActivity.class);
+                startActivity(i);
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
 }
