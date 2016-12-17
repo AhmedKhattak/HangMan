@@ -1,17 +1,23 @@
 package com.example.ahmedkhattak.hangman;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatEditText;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -19,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ahmedkhattak.hangman.Models.HangmanCharacter;
+import com.example.ahmedkhattak.hangman.Models.Words;
 import com.google.android.flexbox.FlexboxLayout;
 
 import java.util.ArrayList;
@@ -30,10 +37,12 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private FlexboxLayout flexboxLayout;
     private ImageView hangmanImageView;
-    private TextView hintTextView;
+    private TextView hintTextView, guessedWordsTextView;
     Button guessButton;
     EditText wordInputEditText;
     List<HangmanCharacter> hangmanCharacterList = null;
+    String word;
+    AppCompatEditText lastFocusedView;
 
 
     @Override
@@ -43,31 +52,29 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setFocus();
         initVars();
+        setListeners();
         removeViews();
         setHintTextView("Its a me mariiio a very noice hint !");
-        renderEditTextViews("Ahmed Khattak");
+        word = "adnanjameel";
+        renderEditTextViews(word);
+        setDefaultFocusedView();
+
 
     }
 
     private void setFocus() {
-        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
     }
 
     private void initVars() {
         hangmanImageView = (ImageView) findViewById(R.id.hangmanImage);
         flexboxLayout = (FlexboxLayout) findViewById(R.id.flexWordContainer);
         hintTextView = (TextView) findViewById(R.id.wordHint);
-        wordInputEditText = (EditText) findViewById(R.id.wordInput);
-        guessButton = (Button) findViewById(R.id.guessButton);
+
     }
 
     private void setListeners() {
-        guessButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-            }
-        });
     }
 
 
@@ -80,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
         //parse word
         char[] ch = stringToCharArray(hangWord);
         //gen random hints from word
-        List<Integer> hintPositonal = getRandom(ch.length, 3); //limit must be <= to char.length no checks inplace !
+        List<Integer> hintPositonal = getRandom(ch.length, 4); //limit must be <= to char.length no checks inplace !
         hangmanCharacterList = new ArrayList<>();
         for (int i = 0; i < ch.length; i++) {
             //generate HangmanCharacter List
@@ -151,71 +158,47 @@ public class MainActivity extends AppCompatActivity {
             hangmanCharacterList.clear();
         }
         hangmanCharacterList = null;
+        word = "";
+        lastFocusedView = null;
         //then get rid of all views that represent the data
         flexboxLayout.removeViews(0, flexboxLayout.getChildCount());
 
     }
 
-    private EditText builEditTextView(int id) {
-        EditText editText = new EditText(this);
-        editText.setVisibility(View.VISIBLE);
-        editText.setCursorVisible(false);
-        editText.setGravity(Gravity.CENTER);
-        editText.setFocusable(true);
-        editText.setSaveEnabled(true);
-        editText.setInputType(InputType.TYPE_NULL);
-        editText.setFilters(new InputFilter[]{
+    private AppCompatEditText builEditTextView(int id) {
+        final AppCompatEditText editTextView = new AppCompatEditText(this);
+        editTextView.setVisibility(View.VISIBLE);
+        editTextView.setCursorVisible(false);
+        editTextView.setGravity(Gravity.CENTER);
+        editTextView.setFocusable(false);
+        editTextView.setSaveEnabled(true);
+        editTextView.setInputType(InputType.TYPE_NULL);
+        editTextView.setFilters(new InputFilter[]{
                 new InputFilter.LengthFilter(1)
         });
-        editText.setId(id);
-        editText.setLayoutParams(createDefaultLayoutParams());
-
-
-
-
-        /*
-         android:cursorVisible="false"
-                android:gravity="center"
-                android:imeOptions="actionDone"
-                android:inputType="textCapCharacters|textNoSuggestions"
-                android:maxLength="1"
-                android:saveEnabled="false
-         */
-
-
-        return editText;
+        editTextView.setId(id);
+        editTextView.setEnabled(true);
+        editTextView.setLayoutParams(createDefaultLayoutParams());
+        return editTextView;
 
     }
 
-    private EditText builEditTextViewWithHint(Character text, int id) {
-        EditText editText = new EditText(this);
-        editText.setVisibility(View.VISIBLE);
-        editText.setCursorVisible(false);
-        editText.setGravity(Gravity.CENTER);
-        editText.setFocusable(false);
-        editText.setSaveEnabled(true);
-        editText.setInputType(InputType.TYPE_NULL);
-        editText.setFilters(new InputFilter[]{
+    private AppCompatEditText builEditTextViewWithHint(Character text, int id) {
+        final AppCompatEditText textView = new AppCompatEditText(this);
+        textView.setVisibility(View.VISIBLE);
+        textView.setCursorVisible(false);
+        textView.setGravity(Gravity.CENTER);
+        textView.setFocusable(false);
+        textView.setSaveEnabled(true);
+        textView.setInputType(InputType.TYPE_NULL);
+        textView.setFilters(new InputFilter[]{
                 new InputFilter.LengthFilter(1)
         });
-        editText.setId(id);
-        editText.setLayoutParams(createDefaultLayoutParams());
-        editText.setText(text.toString());
-
-
-
-
-        /*
-       android:cursorVisible="false"
-                android:focusable="false"
-                android:gravity="center"
-                android:inputType="none|"
-                android:maxLength="1"
-                android:saveEnabled="false"
-         */
-
-
-        return editText;
+        textView.setId(id);
+        textView.setEnabled(true);
+        textView.setLayoutParams(createDefaultLayoutParams());
+        textView.setText(text.toString());
+        return textView;
     }
 
 
@@ -228,16 +211,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void showWinImage() {
-
-    }
-
-    private void showLoseImage() {
-
-    }
 
     private void resetGame() {
-
+        removeViews();
+        setHintTextView("Its a me mariiio a very noice hint !");
+        word = "adnanjameel";
+        renderEditTextViews(word);
+        setDefaultFocusedView();
     }
 
     private FlexboxLayout.LayoutParams createDefaultLayoutParams() {
@@ -264,7 +244,7 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.action_restart:
 
-                Toast.makeText(this, "restart game clicked !", Toast.LENGTH_SHORT).show();
+                resetGame();
                 return true;
 
             case R.id.action_about:
@@ -279,5 +259,57 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
 
         }
+    }
+
+    private void showLoseDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.loose_dialog, null);
+        builder.setView(dialogView)
+                .setMessage("YOU LOSE !")
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                }).create().show();
+    }
+
+    private void showWinDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.win_dialog, null);
+        builder.setView(dialogView)
+                .setMessage("YOU WIN !")
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                }).create().show();
+    }
+
+    private void showWordDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("The word was " + word)
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                }).create().show();
+    }
+
+    private void setDefaultFocusedView() {
+        lastFocusedView = (AppCompatEditText) flexboxLayout.getChildAt(0);
+    }
+
+    public Words getRandomWordAndHint(){
+        return new Words("","");
+    }
+
+    public void keyboardClick(View view) {
+
+
     }
 }
