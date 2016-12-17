@@ -5,5 +5,7 @@ Class      : BSCS-7B
 Enrollment : 01-134132-016
 ### Screen shots
 ![Alt text](screenshots/main.png)
+![Alt text](screenshots/win.png)
+![Alt text](screenshots/loose.png)
 ![Alt text](screenshots/about.png)
 

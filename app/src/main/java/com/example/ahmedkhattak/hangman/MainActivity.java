@@ -237,7 +237,6 @@ public class MainActivity extends AppCompatActivity {
         word = null;
         looseCounter = 0;
         lastFocusedView = null;
-
         removeViews();
         word = getRandomWord();
         setHintTextView(word.getHint());
