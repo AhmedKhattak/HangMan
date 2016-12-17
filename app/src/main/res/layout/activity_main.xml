@@ -61,7 +61,7 @@
             android:contentDescription="@string/the_man_on_the_gallows_with_his_life_in_the_players_hands"
             android:paddingLeft="60dp"
             android:scaleType="centerCrop"
-            app:srcCompat="@drawable/fullhangman" />
+            app:srcCompat="@drawable/gallows" />
 
 
         <com.google.android.flexbox.FlexboxLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -80,208 +80,208 @@
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/q"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:layout_margin="0dp"
                 android:onClick="keyboardClick"
                 android:text="q" />
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/w"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:layout_margin="0dp"
                 android:onClick="keyboardClick"
                 android:text="w" />
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/e"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:layout_margin="0dp"
                 android:onClick="keyboardClick"
                 android:text="e" />
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/r"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:layout_margin="0dp"
                 android:onClick="keyboardClick"
                 android:text="r" />
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/t"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:layout_margin="0dp"
                 android:onClick="keyboardClick"
                 android:text="t" />
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/y"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:layout_margin="0dp"
                 android:onClick="keyboardClick"
                 android:text="y" />
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/u"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:layout_margin="0dp"
                 android:onClick="keyboardClick"
                 android:text="u" />
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/i"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:layout_margin="0dp"
                 android:onClick="keyboardClick"
                 android:text="i" />
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/o"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:layout_margin="0dp"
                 android:onClick="keyboardClick"
                 android:text="o" />
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/p"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:layout_margin="0dp"
                 android:onClick="keyboardClick"
                 android:text="p" />
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/a"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:layout_margin="0dp"
                 android:onClick="keyboardClick"
                 android:text="a" />
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/s"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:layout_margin="0dp"
                 android:onClick="keyboardClick"
                 android:text="s" />
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/d"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:layout_margin="0dp"
                 android:onClick="keyboardClick"
                 android:text="d" />
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/f"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:layout_margin="0dp"
                 android:onClick="keyboardClick"
                 android:text="f" />
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/g"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:layout_margin="0dp"
                 android:onClick="keyboardClick"
                 android:text="g" />
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/h"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:layout_margin="0dp"
                 android:onClick="keyboardClick"
                 android:text="h" />
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/j"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:layout_margin="0dp"
                 android:onClick="keyboardClick"
                 android:text="j" />
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/k"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:layout_margin="0dp"
                 android:onClick="keyboardClick"
                 android:text="k" />
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/l"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:layout_margin="0dp"
                 android:onClick="keyboardClick"
                 android:text="l" />
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/z"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:layout_margin="0dp"
                 android:onClick="keyboardClick"
                 android:text="z" />
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/x"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:layout_margin="0dp"
                 android:onClick="keyboardClick"
                 android:text="x" />
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/c"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:layout_margin="0dp"
                 android:onClick="keyboardClick"
                 android:text="c" />
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/v"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:layout_margin="0dp"
                 android:onClick="keyboardClick"
                 android:text="v" />
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/b"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:layout_margin="0dp"
                 android:onClick="keyboardClick"
                 android:text="b" />
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/n"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:layout_margin="0dp"
                 android:onClick="keyboardClick"
                 android:text="n" />
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/m"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:layout_margin="0dp"
                 android:onClick="keyboardClick"
                 android:text="m" />

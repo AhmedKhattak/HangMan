@@ -1,11 +1,11 @@
 package com.example.ahmedkhattak.hangman;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.InputFilter;
 import android.text.InputType;
@@ -17,7 +17,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -35,14 +34,18 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
-    private FlexboxLayout flexboxLayout;
+    private FlexboxLayout flexboxLayout, bakedKeyboardLayout;
     private ImageView hangmanImageView;
     private TextView hintTextView, guessedWordsTextView;
     Button guessButton;
     EditText wordInputEditText;
     List<HangmanCharacter> hangmanCharacterList = null;
-    String word;
+    List<Words> wordsList = null;
+    Words word;
+    Random randomWordGenerator;
     AppCompatEditText lastFocusedView;
+    int looseCounter = 0;
+    final int looseCount = 6;
 
 
     @Override
@@ -52,12 +55,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setFocus();
         initVars();
-        setListeners();
+        generateWords();
         removeViews();
-        setHintTextView("Its a me mariiio a very noice hint !");
-        word = "adnanjameel";
-        renderEditTextViews(word);
-        setDefaultFocusedView();
+        word = getRandomWord();
+        setHintTextView(word.getHint());
+        renderEditTextViews(word.getWord());
 
 
     }
@@ -70,10 +72,8 @@ public class MainActivity extends AppCompatActivity {
         hangmanImageView = (ImageView) findViewById(R.id.hangmanImage);
         flexboxLayout = (FlexboxLayout) findViewById(R.id.flexWordContainer);
         hintTextView = (TextView) findViewById(R.id.wordHint);
-
-    }
-
-    private void setListeners() {
+        bakedKeyboardLayout = (FlexboxLayout) findViewById(R.id.bakedKeyboard);
+        randomWordGenerator = new Random();
 
     }
 
@@ -153,15 +153,13 @@ public class MainActivity extends AppCompatActivity {
 
     //destroy any child views if they exist
     private void removeViews() {
-        //first clear data
-        if (hangmanCharacterList != null) {
-            hangmanCharacterList.clear();
-        }
-        hangmanCharacterList = null;
-        word = "";
-        lastFocusedView = null;
         //then get rid of all views that represent the data
         flexboxLayout.removeViews(0, flexboxLayout.getChildCount());
+        //enable buttons
+        for (int x = 0; x < bakedKeyboardLayout.getChildCount(); x++) {
+            bakedKeyboardLayout.getChildAt(x).setEnabled(true);
+        }
+
 
     }
 
@@ -208,16 +206,44 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void failOrWinConditionCheck() {
+        if (looseCounter == looseCount) {
+            //player lost the game show loose dialog and reset every thing after user clicks or dismisses dialog
+            Log.d(TAG, "LOOSE !!!");
+            showLoseDialog();
+        } else {
+            //get each edittext and get its text and transform it to a string and then do a simple string compare
+            StringBuilder stringBuilder = new StringBuilder();
+            for (int x = 0; x < flexboxLayout.getChildCount(); x++) {
+                AppCompatEditText edditext = (AppCompatEditText) flexboxLayout.getChildAt(x);
+                stringBuilder.append(edditext.getText());
+            }
+            if (word.getWord().equals(stringBuilder.toString())) {
+                Log.d(TAG, "WIN !!!");
+                showWinDialog();
+            }
+
+        }
+
 
     }
 
 
     private void resetGame() {
+        //first clear data
+        if (hangmanCharacterList != null) {
+            hangmanCharacterList.clear();
+        }
+        hangmanCharacterList = null;
+        word = null;
+        looseCounter = 0;
+        lastFocusedView = null;
+
         removeViews();
-        setHintTextView("Its a me mariiio a very noice hint !");
-        word = "adnanjameel";
-        renderEditTextViews(word);
-        setDefaultFocusedView();
+        word = getRandomWord();
+        setHintTextView(word.getHint());
+        renderEditTextViews(word.getWord());
+        hangmanImageView.setImageResource(R.drawable.gallows);
+
     }
 
     private FlexboxLayout.LayoutParams createDefaultLayoutParams() {
@@ -266,11 +292,14 @@ public class MainActivity extends AppCompatActivity {
         LayoutInflater inflater = getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.loose_dialog, null);
         builder.setView(dialogView)
-                .setMessage("YOU LOSE !")
+                .setTitle("YOU LOSE !")
+                .setMessage("The word was " + word.getWord())
+                .setCancelable(false)
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
+                        resetGame();
                     }
                 }).create().show();
     }
@@ -280,36 +309,206 @@ public class MainActivity extends AppCompatActivity {
         LayoutInflater inflater = getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.win_dialog, null);
         builder.setView(dialogView)
-                .setMessage("YOU WIN !")
+                .setCancelable(false)
+                .setTitle("YOU WIN !")
+                .setMessage("Congratulations")
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
+                        resetGame();
                     }
                 }).create().show();
     }
 
-    private void showWordDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("The word was " + word)
-                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                }).create().show();
-    }
-
-    private void setDefaultFocusedView() {
-        lastFocusedView = (AppCompatEditText) flexboxLayout.getChildAt(0);
-    }
-
-    public Words getRandomWordAndHint(){
-        return new Words("","");
-    }
 
     public void keyboardClick(View view) {
 
+        int id;
+        AppCompatButton button = (AppCompatButton) view;
+        id = button.getId();
+        switch (id) {
 
+            case R.id.a:
+                checkWord("a", button);
+                break;
+
+            case R.id.b:
+                checkWord("b", button);
+                break;
+
+            case R.id.c:
+                checkWord("c", button);
+                break;
+
+            case R.id.d:
+                checkWord("d", button);
+                break;
+
+            case R.id.e:
+                checkWord("e", button);
+                break;
+
+            case R.id.f:
+                checkWord("f", button);
+                break;
+
+            case R.id.g:
+                checkWord("g", button);
+                break;
+
+            case R.id.h:
+                checkWord("h", button);
+                break;
+
+            case R.id.i:
+                checkWord("i", button);
+                break;
+
+            case R.id.j:
+                checkWord("j", button);
+                break;
+
+            case R.id.k:
+                checkWord("k", button);
+                break;
+
+            case R.id.l:
+                checkWord("l", button);
+                break;
+
+
+            case R.id.m:
+                checkWord("m", button);
+                break;
+
+            case R.id.n:
+                checkWord("n", button);
+                break;
+
+            case R.id.o:
+                checkWord("o", button);
+                break;
+
+            case R.id.p:
+                checkWord("p", button);
+                break;
+
+            case R.id.q:
+                checkWord("q", button);
+                break;
+
+            case R.id.r:
+                checkWord("r", button);
+                break;
+
+
+            case R.id.s:
+                checkWord("s", button);
+                break;
+
+            case R.id.t:
+                checkWord("t", button);
+                break;
+
+            case R.id.u:
+                checkWord("u", button);
+                break;
+
+
+            case R.id.v:
+                checkWord("v", button);
+                break;
+
+            case R.id.w:
+                checkWord("w", button);
+                break;
+
+
+            case R.id.x:
+                checkWord("x", button);
+                break;
+
+
+            case R.id.y:
+                checkWord("y", button);
+                break;
+
+
+            case R.id.z:
+                checkWord("z", button);
+                break;
+
+
+            default:
+                Toast.makeText(this, "this should not happen !", Toast.LENGTH_SHORT).show();
+                break;
+        }
+    }
+
+    //make words nondynamically a better way would be to have sqlite db with these columns
+    //category,word,hint. Here only words and hints are given
+    public void generateWords() {
+
+        wordsList = new ArrayList<>();
+        wordsList.add(new Words("karachi", "City of lights"));
+        wordsList.add(new Words("madinamarket", "Has best chicken karahi around !"));
+        wordsList.add(new Words("savourfoods", "Has best pulao around town (not really)"));
+        wordsList.add(new Words("lahore", "The Walled City"));
+        wordsList.add(new Words("google", "Portal of unlimited knowledge"));
+        wordsList.add(new Words("fingers", "Attached to your hands"));
+        wordsList.add(new Words("eyes", "Window to the soul"));
+        wordsList.add(new Words("android", "Half human half machine"));
+        wordsList.add(new Words("apple", "Saib"));
+        wordsList.add(new Words("achtung", "Attention in german"));
+        wordsList.add(new Words("arnold", "Hastalavista"));
+        wordsList.add(new Words("assignments", "Bane of university life"));
+    }
+
+    public Words getRandomWord() {
+        int idx = randomWordGenerator.nextInt(wordsList.size());
+        return wordsList.get(idx);
+    }
+
+    private void checkWord(String charsequence, AppCompatButton button) {
+        if (word.getWord().contains(charsequence)) {
+
+            //since each edit text is given an integer id starting from 0 which is same as
+            //each index of a character in a given word so we correlate that to find which edittext needs to be
+            //set with some text
+
+            //find all occurences of each char in the word and set the related edditext accordingly !
+
+            for (int index = word.getWord().indexOf(charsequence); index >= 0; index = word.getWord().indexOf(charsequence, index + 1)) {
+                Log.d(TAG, String.valueOf(index));
+                AppCompatEditText edittext = (AppCompatEditText) flexboxLayout.getChildAt(index);
+                edittext.setText(charsequence);
+            }
+            failOrWinConditionCheck();
+
+        } else {
+            //change color to indicate the character selected was wrong also maybe disable it ?
+            button.setEnabled(false);
+            //check fail or win condition
+            looseCounter++;
+            showHangman();
+            failOrWinConditionCheck();
+        }
+    }
+
+
+    private void showHangman() {
+        if (looseCounter == 1) {
+            hangmanImageView.setImageResource(R.drawable.hangmanhead);
+        } else if (looseCounter == 2) {
+            hangmanImageView.setImageResource(R.drawable.hangman_head_leftarm);
+        } else if (looseCounter == 3) {
+            hangmanImageView.setImageResource(R.drawable.hangman_head_leftarm_righarm);
+        } else if (looseCounter == 4) {
+            hangmanImageView.setImageResource(R.drawable.hangman_head_leftarm_rightarm_torso);
+        } else if (looseCounter == 5) {
+            hangmanImageView.setImageResource(R.drawable.hangman_body_leftleg);
+        } else if (looseCounter == 6) {
+            hangmanImageView.setImageResource(R.drawable.fullhangman);
+        }
     }
 }
