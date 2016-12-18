@@ -21,7 +21,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.ahmedkhattak.hangman.Models.HangmanCharacter;
 import com.example.ahmedkhattak.hangman.Models.Words;
@@ -46,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     AppCompatEditText lastFocusedView;
     int looseCounter = 0;
     final int looseCount = 6;
+    AppCompatButton a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, vv, w, x, y, z;
 
 
     @Override
@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setFocus();
         initVars();
+        setListeners();
         generateWords();
         removeViews();
         word = getRandomWord();
@@ -73,6 +74,32 @@ public class MainActivity extends AppCompatActivity {
         flexboxLayout = (FlexboxLayout) findViewById(R.id.flexWordContainer);
         hintTextView = (TextView) findViewById(R.id.wordHint);
         bakedKeyboardLayout = (FlexboxLayout) findViewById(R.id.bakedKeyboard);
+        a = (AppCompatButton) findViewById(R.id.a);
+        b = (AppCompatButton) findViewById(R.id.b);
+        c = (AppCompatButton) findViewById(R.id.c);
+        d = (AppCompatButton) findViewById(R.id.d);
+        e = (AppCompatButton) findViewById(R.id.e);
+        f = (AppCompatButton) findViewById(R.id.f);
+        g = (AppCompatButton) findViewById(R.id.g);
+        h = (AppCompatButton) findViewById(R.id.h);
+        i = (AppCompatButton) findViewById(R.id.i);
+        j = (AppCompatButton) findViewById(R.id.j);
+        k = (AppCompatButton) findViewById(R.id.k);
+        l = (AppCompatButton) findViewById(R.id.l);
+        m = (AppCompatButton) findViewById(R.id.m);
+        n = (AppCompatButton) findViewById(R.id.n);
+        o = (AppCompatButton) findViewById(R.id.o);
+        p = (AppCompatButton) findViewById(R.id.p);
+        q = (AppCompatButton) findViewById(R.id.q);
+        r = (AppCompatButton) findViewById(R.id.r);
+        s = (AppCompatButton) findViewById(R.id.s);
+        t = (AppCompatButton) findViewById(R.id.t);
+        u = (AppCompatButton) findViewById(R.id.u);
+        vv = (AppCompatButton) findViewById(R.id.v);
+        w = (AppCompatButton) findViewById(R.id.w);
+        x = (AppCompatButton) findViewById(R.id.x);
+        y = (AppCompatButton) findViewById(R.id.y);
+        z = (AppCompatButton) findViewById(R.id.z);
         randomWordGenerator = new Random();
 
     }
@@ -162,6 +189,202 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    private void setListeners() {
+        a.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkWord("a", a);
+            }
+        });
+
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkWord("b", b);
+            }
+        });
+
+        c.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkWord("c", c);
+            }
+        });
+
+        d.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkWord("d", d);
+            }
+        });
+
+        e.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkWord("e", e);
+            }
+        });
+
+        f.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkWord("f", f);
+            }
+        });
+
+        g.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkWord("g", g);
+            }
+        });
+
+        h.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkWord("h", h);
+            }
+        });
+
+        i.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkWord("i", i);
+            }
+        });
+
+        j.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkWord("j", j);
+            }
+        });
+
+        k.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkWord("k", k);
+            }
+        });
+
+        l.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkWord("l", l);
+            }
+        });
+
+
+        m.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkWord("m", m);
+            }
+        });
+
+
+        n.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkWord("n", n);
+            }
+        });
+
+        o.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkWord("o", o);
+            }
+        });
+
+        p.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkWord("p", p);
+            }
+        });
+
+
+        q.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkWord("q", q);
+            }
+        });
+
+
+        r.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkWord("r", r);
+            }
+        });
+
+
+        s.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkWord("s", s);
+            }
+        });
+
+
+        t.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkWord("t", t);
+            }
+        });
+
+
+        u.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkWord("u", u);
+            }
+        });
+
+
+        vv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkWord("v", vv);
+            }
+        });
+
+
+        w.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkWord("w", w);
+            }
+        });
+
+
+        x.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkWord("x", x);
+            }
+        });
+
+        y.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkWord("y", y);
+            }
+        });
+
+
+        z.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkWord("z", z);
+            }
+        });
+    }
+
 
     private AppCompatEditText builEditTextView(int id) {
         final AppCompatEditText editTextView = new AppCompatEditText(this);
@@ -320,7 +543,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void keyboardClick(View view) {
+    /*public void keyboardClick(View view) {
 
         int id;
         AppCompatButton button = (AppCompatButton) view;
@@ -442,7 +665,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "this should not happen !", Toast.LENGTH_SHORT).show();
                 break;
         }
-    }
+    }*/
 
     //make words nondynamically a better way would be to have sqlite db with these columns
     //category,word,hint. Here only words and hints are given
@@ -492,6 +715,7 @@ public class MainActivity extends AppCompatActivity {
             showHangman();
             failOrWinConditionCheck();
         }
+        Log.d(TAG,charsequence);
     }
 
 
