@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -27,6 +28,35 @@ public class AboutActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        try {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }catch (Exception x)
+        {
+            x.printStackTrace();
+        }
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return true;
+    }
+
+
+    @Override
+    public void onBackPressed() {
+
+        finish();
+        //overridePendingTransition(R.anim.NothingAnim,R.anim.Animation_4);
     }
 
 
